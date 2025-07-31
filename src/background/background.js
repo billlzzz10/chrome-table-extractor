@@ -1,7 +1,7 @@
 // Background Script for Table Extractor AI Chrome Extension
 
 // Import utilities (in a real extension, these would be loaded via manifest)
-importScripts('../utils/promptTemplates.js', '../utils/aiService.js');
+importScripts('../utils/promptTemplates.js', '../utils/aiService.js', '../utils/tableExtractor.js');
 
 class BackgroundService {
   constructor() {
@@ -39,8 +39,7 @@ class BackgroundService {
     // Initialize default settings
     await this.initializeDefaultSettings();
     
-    // Initialize default prompt templates
-    await this.promptManager.initializeDefaultTemplates();
+    // Default prompt templates are loaded automatically by PromptTemplateManager
     
     // Show welcome notification
     if (details.reason === 'install') {
@@ -250,20 +249,22 @@ class BackgroundService {
   }
 
   setupContextMenus() {
-    chrome.contextMenus.create({
-      id: 'extract-table',
-      title: 'ดึงข้อมูลตาราง',
-      contexts: ['selection', 'page']
-    });
+    chrome.contextMenus.removeAll(() => {
+      chrome.contextMenus.create({
+        id: 'extract-table',
+        title: 'ดึงข้อมูลตาราง',
+        contexts: ['selection', 'page']
+      });
 
-    chrome.contextMenus.create({
-      id: 'process-with-ai',
-      title: 'ประมวลผลด้วย AI',
-      contexts: ['selection']
-    });
+      chrome.contextMenus.create({
+        id: 'process-with-ai',
+        title: 'ประมวลผลด้วย AI',
+        contexts: ['selection']
+      });
 
-    chrome.contextMenus.onClicked.addListener((info, tab) => {
-      this.handleContextMenuClick(info, tab);
+      chrome.contextMenus.onClicked.addListener((info, tab) => {
+        this.handleContextMenuClick(info, tab);
+      });
     });
   }
 

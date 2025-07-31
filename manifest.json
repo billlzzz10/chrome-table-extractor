@@ -10,7 +10,8 @@
     "tabs",
     "downloads",
     "clipboardWrite",
-    "clipboardRead"
+    "clipboardRead",
+    "contextMenus"
   ],
   "host_permissions": [
     "https://api.openai.com/*",
