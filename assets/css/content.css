@@ -1,0 +1,259 @@
+/* Content script styles */
+
+/* Table extraction overlay */
+.table-extractor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-extractor-modal {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Table highlighting */
+.table-extractor-highlight {
+  outline: 3px solid #007AFF !important;
+  outline-offset: 2px !important;
+  background-color: rgba(0, 122, 255, 0.1) !important;
+  cursor: pointer !important;
+  position: relative !important;
+}
+
+.table-extractor-highlight::after {
+  content: 'คลิกเพื่อดึงข้อมูลตาราง';
+  position: absolute;
+  top: -30px;
+  left: 0;
+  background-color: #007AFF;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 1000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Selection indicator */
+.table-extractor-selected {
+  outline: 3px solid #34C759 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(52, 199, 89, 0.1) !important;
+}
+
+.table-extractor-selected::after {
+  content: 'ตารางที่เลือก';
+  background-color: #34C759;
+}
+
+/* Floating action button */
+.table-extractor-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background-color: #007AFF;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  cursor: pointer;
+  z-index: 999998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.table-extractor-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+}
+
+.table-extractor-fab svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+/* Progress indicator */
+.table-extractor-progress {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999997;
+  display: none;
+  min-width: 200px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.table-extractor-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #E5E5E7;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.table-extractor-progress-fill {
+  height: 100%;
+  background-color: #007AFF;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Notification toast */
+.table-extractor-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #34C759;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 999996;
+  animation: toastSlideDown 0.3s ease-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.table-extractor-toast.error {
+  background-color: #FF3B30;
+}
+
+.table-extractor-toast.warning {
+  background-color: #FF9500;
+}
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .table-extractor-modal {
+    background-color: #1C1C1E;
+    color: white;
+  }
+  
+  .table-extractor-progress {
+    background-color: #1C1C1E;
+    color: white;
+  }
+  
+  .table-extractor-progress-bar {
+    background-color: #38383A;
+  }
+}
+
+/* Hide elements that might interfere */
+.table-extractor-hidden {
+  display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table-extractor-fab {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+  
+  .table-extractor-fab svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .table-extractor-progress {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    min-width: auto;
+  }
+  
+  .table-extractor-modal {
+    margin: 16px;
+    width: calc(100% - 32px);
+    max-width: none;
+  }
+  
+  .table-extractor-highlight::after {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
+/* Animation for table detection */
+@keyframes tableDetected {
+  0%, 100% {
+    outline-color: #007AFF;
+  }
+  50% {
+    outline-color: #34C759;
+  }
+}
+
+.table-extractor-detected {
+  animation: tableDetected 1.5s ease-in-out infinite;
+}
+
+/* Loading spinner for content script */
+.table-extractor-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #E5E5E7;
+  border-top: 2px solid #007AFF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Extractor AI</title>
+    <link rel="stylesheet" href="../../assets/css/modern-ui.css">
+    <link rel="stylesheet" href="../../assets/css/popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <!-- Header -->
+        <div class="popup-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="../../assets/icons/icon16.png" alt="Table Extractor AI" class="logo">
+                    <h1 class="app-title">Table Extractor AI</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="icon-btn" title="เปลี่ยนธีม">🌙</button>
+                    <button id="settings-btn" class="icon-btn" title="ตั้งค่า">⚙️</button>
+                </div>
+            </div>
+            
+            <!-- Current Page Info -->
+            <div id="current-page-info" class="page-info-section">
+                <div class="page-info">
+                    <div class="page-title">กำลังโหลด...</div>
+                    <div class="page-url">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="extract">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">ดึงข้อมูล</span>
+            </button>
+            <button class="tab-btn" data-tab="process">
+                <span class="tab-icon">🤖</span>
+                <span class="tab-label">ประมวลผล</span>
+            </button>
+            <button class="tab-btn" data-tab="history">
+                <span class="tab-icon">📝</span>
+                <span class="tab-label">ประวัติ</span>
+            </button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="tab-contents">
+            <!-- Extract Tab -->
+            <div id="extract-tab" class="tab-content active">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>🔍 ค้นหาตาราง</h3>
+                        <div class="section-actions">
+                            <button id="scan-page-btn" class="btn btn-primary">
+                                <span class="btn-icon">🔍</span>
+                                สแกนหน้าเว็บ
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-grid">
+                        <div class="action-card">
+                            <div class="card-icon">📄</div>
+                            <h4>อัปโหลดไฟล์</h4>
+                            <p>CSV, Excel, JSON, YAML, PDF</p>
+                            <input type="file" id="file-upload" accept=".csv,.xlsx,.xls,.json,.yaml,.yml,.pdf,.doc,.docx,.md" style="display: none;">
+                            <button class="btn btn-outline" onclick="document.getElementById('file-upload').click()">
+                                เลือกไฟล์
+                            </button>
+                        </div>
+                        
+                        <div class="action-card">
+                            <div class="card-icon">🌐</div>
+                            <h4>เชื่อมต่อ API</h4>
+                            <p>Notion, Airtable, Google Sheets</p>
+                            <button class="btn btn-outline" onclick="chrome.runtime.openOptionsPage()">
+                                ตั้งค่า API
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📊 ตารางที่พบ</h3>
+                        <div class="floating-ui-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="floating-ui-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Floating UI</span>
+                        </div>
+                    </div>
+                    
+                    <div id="tables-list" class="tables-container">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <h3>ยังไม่มีตาราง</h3>
+                            <p>สแกนหน้าเว็บหรืออัปโหลดไฟล์เพื่อเริ่มต้น</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Tab -->
+            <div id="process-tab" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📊 ตารางที่เลือก</h3>
+                    </div>
+                    
+                    <div id="selected-table-info" class="selected-table-section">
+                        <div class="empty-state">
+                            <div class="empty-icon">📋</div>
+                            <h3>ยังไม่ได้เลือกตาราง</h3>
+                            <p>กลับไปที่แท็บ "ดึงข้อมูล" เพื่อเลือกตาราง</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="process-controls" class="section" style="display: none;">
+                    <div class="section-header">
+                        <h3>🤖 ประมวลผลด้วย AI</h3>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions-section">
+                        <h4>⚡ การดำเนินการด่วน</h4>
+                        <div id="quick-actions" class="quick-actions-grid">
+                            <!-- Quick action buttons will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Prompt Template Selection -->
+                    <div class="prompt-section">
+                        <h4>📝 เทมเพลต Prompt</h4>
+                        <div class="form-group">
+                            <select id="prompt-template-select" class="form-select">
+                                <option value="">เลือกเทมเพลต...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Custom Prompt -->
+                    <div class="custom-prompt-section">
+                        <h4>✏️ คำสั่งกำหนดเอง</h4>
+                        <div class="form-group">
+                            <textarea 
+                                id="custom-prompt-input" 
+                                class="form-textarea" 
+                                placeholder="ใส่คำสั่งที่ต้องการ เช่น 'สรุปข้อมูลในตารางนี้' หรือ 'หาแนวโน้มจากข้อมูล'"
+                                rows="3"
+                            ></textarea>
+                        </div>
+                        <button id="process-custom-btn" class="btn btn-primary btn-full">
+                            <span class="btn-icon">🚀</span>
+                            ประมวลผล
+                        </button>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="export-section">
+                        <h4>📤 ส่งออกข้อมูล</h4>
+                        <div class="export-buttons">
+                            <button class="btn btn-outline export-btn" data-format="csv">
+                                <span class="btn-icon">📄</span>
+                                CSV
+                            </button>
+                            <button class="btn btn-outline export-btn" data-format="json">
+                                <span class="btn-icon">📋</span>
+                                JSON
+                            </button>
+                            <button class="btn btn-outline export-btn" data-format="markdown">
+                                <span class="btn-icon">📝</span>
+                                Markdown
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div id="history-tab" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📝 ประวัติการประมวลผล</h3>
+                        <button class="btn btn-outline btn-sm" onclick="chrome.storage.local.clear()">
+                            ล้างประวัติ
+                        </button>
+                    </div>
+                    
+                    <div id="ai-results" class="results-container">
+                        <!-- AI results will be populated here -->
+                    </div>
+                    
+                    <div id="processing-history" class="history-container">
+                        <!-- Processing history will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading-indicator" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p class="loading-text">กำลังประมวลผล...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Extractor AI - ตั้งค่า</title>
+    <link rel="stylesheet" href="../../assets/css/modern-ui.css">
+    <link rel="stylesheet" href="../../assets/css/options.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../../assets/icons/icon48.png" alt="Table Extractor AI">
+                    <h1>Table Extractor AI</h1>
+                </div>
+                <div class="version">v1.0.0</div>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="api">API Keys</button>
+            <button class="nav-tab" data-tab="prompts">Prompt Templates</button>
+            <button class="nav-tab" data-tab="connections">การเชื่อมต่อ</button>
+            <button class="nav-tab" data-tab="display">การแสดงผล</button>
+            <button class="nav-tab" data-tab="about">เกี่ยวกับ</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- API Keys Tab -->
+            <div class="tab-content active" id="api-tab">
+                <div class="section">
+                    <h2>🔑 API Keys</h2>
+                    <p class="section-description">กำหนด API Keys สำหรับบริการ AI ต่างๆ</p>
+                    
+                    <div class="form-group">
+                        <label for="openai-key">OpenAI API Key</label>
+                        <div class="input-group">
+                            <input type="password" id="openai-key" placeholder="sk-...">
+                            <button type="button" class="btn btn-secondary" id="test-openai">ทดสอบ</button>
+                            <div class="status-indicator" id="openai-status"></div>
+                        </div>
+                        <small>รองรับ GPT-4, GPT-4 Turbo, GPT-3.5 Turbo</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="claude-key">Claude API Key</label>
+                        <div class="input-group">
+                            <input type="password" id="claude-key" placeholder="sk-ant-...">
+                            <button type="button" class="btn btn-secondary" id="test-claude">ทดสอบ</button>
+                            <div class="status-indicator" id="claude-status"></div>
+                        </div>
+                        <small>รองรับ Claude 3 Opus, Sonnet, Haiku</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="google-key">Google AI API Key</label>
+                        <div class="input-group">
+                            <input type="password" id="google-key" placeholder="AIza...">
+                            <button type="button" class="btn btn-secondary" id="test-google">ทดสอบ</button>
+                            <div class="status-indicator" id="google-status"></div>
+                        </div>
+                        <small>รองรับ Gemini Pro และ Gemini Pro Vision</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prompt Templates Tab -->
+            <div class="tab-content" id="prompts-tab">
+                <div class="section">
+                    <h2>🤖 Prompt Templates</h2>
+                    <p class="section-description">จัดการเทมเพลต Prompt สำหรับการประมวลผลข้อมูลด้วย AI</p>
+                    
+                    <div class="prompt-toolbar">
+                        <div class="search-box">
+                            <input type="text" id="prompt-search" placeholder="ค้นหาเทมเพลต...">
+                        </div>
+                        <div class="toolbar-actions">
+                            <button type="button" class="btn btn-primary" id="create-prompt">+ สร้างใหม่</button>
+                            <button type="button" class="btn btn-secondary" id="import-prompts">📥 นำเข้า</button>
+                            <button type="button" class="btn btn-secondary" id="export-prompts">📤 ส่งออก</button>
+                        </div>
+                    </div>
+
+                    <div class="prompt-categories">
+                        <button class="category-filter active" data-category="all">ทั้งหมด</button>
+                        <button class="category-filter" data-category="basic">พื้นฐาน</button>
+                        <button class="category-filter" data-category="creative">สร้างสรรค์</button>
+                        <button class="category-filter" data-category="analysis">วิเคราะห์</button>
+                        <button class="category-filter" data-category="enhancement">ปรับปรุง</button>
+                        <button class="category-filter" data-category="format">จัดรูปแบบ</button>
+                        <button class="category-filter" data-category="visual">ภาพ</button>
+                    </div>
+
+                    <div class="prompt-list" id="prompt-list">
+                        <!-- Prompt templates will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connections Tab -->
+            <div class="tab-content" id="connections-tab">
+                <div class="section">
+                    <h2>🔗 การเชื่อมต่อ</h2>
+                    <p class="section-description">ตั้งค่าการเชื่อมต่อกับบริการภายนอก</p>
+                    
+                    <div class="form-group">
+                        <label for="notion-token">Notion Integration Token</label>
+                        <div class="input-group">
+                            <input type="password" id="notion-token" placeholder="secret_...">
+                            <button type="button" class="btn btn-secondary" id="test-notion">ทดสอบ</button>
+                            <div class="status-indicator" id="notion-status"></div>
+                        </div>
+                        <small>สำหรับการเชื่อมต่อกับ Notion Database</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="airtable-key">Airtable API Key</label>
+                        <div class="input-group">
+                            <input type="password" id="airtable-key" placeholder="pat...">
+                            <button type="button" class="btn btn-secondary" id="test-airtable">ทดสอบ</button>
+                            <div class="status-indicator" id="airtable-status"></div>
+                        </div>
+                        <small>สำหรับการเชื่อมต่อกับ Airtable Base</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display Tab -->
+            <div class="tab-content" id="display-tab">
+                <div class="section">
+                    <h2>🎨 การแสดงผล</h2>
+                    <p class="section-description">ปรับแต่งการแสดงผลตารางและกราฟ</p>
+                    
+                    <div class="form-group">
+                        <label>ธีมสี</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="light" checked>
+                                <span>สว่าง</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="dark">
+                                <span>มืด</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="auto">
+                                <span>อัตโนมัติ</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>รูปแบบตารางเริ่มต้น</label>
+                        <select id="default-table-format">
+                            <option value="html">ตาราง HTML</option>
+                            <option value="markdown">Markdown</option>
+                            <option value="grid">Grid View</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="show-row-numbers">
+                            <span>แสดงหมายเลขแถว</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="enable-sorting">
+                            <span>เปิดใช้การเรียงลำดับ</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="enable-floating-ui" checked>
+                            <span>เปิดใช้ Floating UI</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div class="tab-content" id="about-tab">
+                <div class="section">
+                    <h2>ℹ️ เกี่ยวกับ</h2>
+                    <div class="about-content">
+                        <div class="app-info">
+                            <img src="../../assets/icons/icon128.png" alt="Table Extractor AI" class="app-icon">
+                            <div class="app-details">
+                                <h3>Table Extractor AI</h3>
+                                <p>เวอร์ชัน 1.0.0</p>
+                                <p>ส่วนขยาย Chrome สำหรับการดึงและประมวลผลข้อมูลตารางด้วย AI</p>
+                            </div>
+                        </div>
+                        
+                        <div class="features-list">
+                            <h4>คุณสมบัติหลัก:</h4>
+                            <ul>
+                                <li>ดึงข้อมูลจากหลายแหล่ง (Notion, Airtable, Excel, PDF, DOC, YAML, Markdown)</li>
+                                <li>ปรับปรุงข้อมูลด้วย AI (OpenAI, Claude, Google AI)</li>
+                                <li>จัดการ Prompt Templates แบบกำหนดเอง</li>
+                                <li>แสดงผลในรูปแบบต่างๆ (ตาราง, กราฟ, Markdown)</li>
+                                <li>Floating UI ที่ไม่บังเนื้อหา</li>
+                                <li>ส่งออกข้อมูลเป็น CSV, JSON, Markdown</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="links">
+                            <a href="#" class="link">คู่มือการใช้งาน</a>
+                            <a href="#" class="link">รายงานปัญหา</a>
+                            <a href="#" class="link">ติดต่อสนับสนุน</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-actions">
+                <button type="button" class="btn btn-secondary" id="reset-settings">รีเซ็ตการตั้งค่า</button>
+                <button type="button" class="btn btn-danger" id="clear-all-data">ลบข้อมูลทั้งหมด</button>
+                <button type="button" class="btn btn-primary" id="save-settings">บันทึกการตั้งค่า</button>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 Table Extractor AI. สงวนลิขสิทธิ์.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Prompt Template Modal -->
+    <div id="prompt-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">สร้าง Prompt Template ใหม่</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="prompt-form">
+                    <div class="form-group">
+                        <label for="prompt-name">ชื่อเทมเพลต *</label>
+                        <input type="text" id="prompt-name" required maxlength="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="prompt-description">คำอธิบาย *</label>
+                        <textarea id="prompt-description" required maxlength="500" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prompt-category">หมวดหมู่ *</label>
+                            <select id="prompt-category" required>
+                                <option value="basic">พื้นฐาน</option>
+                                <option value="creative">สร้างสรรค์</option>
+                                <option value="analysis">วิเคราะห์</option>
+                                <option value="enhancement">ปรับปรุง</option>
+                                <option value="format">จัดรูปแบบ</option>
+                                <option value="visual">ภาพ</option>
+                                <option value="custom">กำหนดเอง</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="prompt-icon">ไอคอน</label>
+                            <input type="text" id="prompt-icon" placeholder="🤖" maxlength="2">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="prompt-content">เนื้อหา Prompt *</label>
+                        <textarea id="prompt-content" required rows="10" placeholder="ใส่เนื้อหา prompt ที่นี่... ใช้ {tableData} เพื่ออ้างอิงข้อมูลตาราง"></textarea>
+                        <small>ใช้ {tableData} เพื่ออ้างอิงข้อมูลตารางในรูปแบบ JSON</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-prompt">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" id="save-prompt">บันทึก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Input for Import -->
+    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+
+    <script src="../../src/utils/promptTemplates.js"></script>
+    <script src="options.js"></script>
+</body>
+</html>
+
