@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Table Extractor AI",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "ดึงโครงสร้างตารางจากแหล่งข้อมูลต่างๆ พร้อมเครื่องมือ AI ในการเติมข้อมูล",
   "permissions": [
     "storage",
@@ -22,7 +22,8 @@
     "*://*/*"
   ],
   "background": {
-    "service_worker": "src/background/background.js"
+    "service_worker": "src/background/background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -56,4 +57,3 @@
     }
   ]
 }
-

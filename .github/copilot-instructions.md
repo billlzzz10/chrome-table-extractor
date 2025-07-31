@@ -94,16 +94,8 @@ chrome.tabs.sendMessage(tabId, { action: 'showFloatingUI', data })
 - Cultural considerations in data formatting
 
 ---
-
 # Codacy Rules
 Configuration for AI behavior when interacting with Codacy's MCP Server
-
-## using any tool that accepts the arguments: `provider`, `organization`, or `repository`
-- ALWAYS use:
- - provider: gh
- - organization: billlzzz10
- - repository: chrome-table-extractor
-- Avoid calling `git remote -v` unless really necessary
 
 ## After ANY successful `edit_file` or `reapply` operation
 - YOU MUST IMMEDIATELY run the `codacy_cli_analyze` tool from Codacy's MCP Server for each file that was edited, with:
