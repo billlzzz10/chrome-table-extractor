@@ -2,6 +2,8 @@
 
 .popup-container {
   width: 400px;
+  min-width: 360px;
+  max-width: 500px;
   min-height: 600px;
   max-height: 700px;
   background: var(--bg-primary);
@@ -10,6 +12,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -488,16 +491,19 @@ input:checked + .toggle-slider:before {
 
 .form-select {
   width: 100%;
+  max-width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--bg-primary);
   color: var(--text-primary);
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-textarea {
   width: 100%;
+  max-width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -507,6 +513,7 @@ input:checked + .toggle-slider:before {
   resize: vertical;
   min-height: 60px;
   font-family: var(--font-family);
+  box-sizing: border-box;
 }
 
 .form-select:focus,
@@ -514,6 +521,59 @@ input:checked + .toggle-slider:before {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 36px;
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  min-height: 28px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-icon {
+  font-size: 14px;
 }
 
 /* Export Buttons */
@@ -770,6 +830,7 @@ input:checked + .toggle-slider:before {
 @media (max-width: 420px) {
   .popup-container {
     width: 100vw;
+    min-width: 320px;
     height: 100vh;
     max-height: none;
   }
@@ -784,6 +845,54 @@ input:checked + .toggle-slider:before {
   
   .export-buttons {
     flex-direction: column;
+  }
+  
+  .tab-navigation {
+    margin: 0 8px 16px;
+  }
+  
+  .tab-contents {
+    padding: 0 8px 16px;
+  }
+  
+  .section {
+    margin-bottom: 16px;
+  }
+  
+  .popup-header {
+    padding: 12px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .page-info-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .popup-container {
+    min-width: 300px;
+  }
+  
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tab-btn {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+  
+  .tab-icon {
+    font-size: 14px;
+  }
+  
+  .tab-label {
+    font-size: 10px;
   }
 }
 

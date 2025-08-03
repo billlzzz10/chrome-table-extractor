@@ -11,7 +11,8 @@
     "downloads",
     "clipboardWrite",
     "clipboardRead",
-    "contextMenus"
+    "contextMenus",
+    "notifications"
   ],
   "host_permissions": [
     "https://api.openai.com/*",
@@ -55,5 +56,8 @@
       "resources": ["assets/*", "src/*"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; worker-src 'self'"
+  }
 }

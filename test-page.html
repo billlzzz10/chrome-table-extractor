@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page - Table Extractor AI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+        }
+        
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #ddd;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .grid-cell {
+            background: white;
+            padding: 12px;
+        }
+        
+        .grid-header {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+        
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 2px dashed #007AFF;
+            border-radius: 8px;
+        }
+        
+        h1 {
+            color: #007AFF;
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007AFF;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 หน้าทดสอบ Table Extractor AI</h1>
+    
+    <p>หน้านี้ใช้สำหรับทดสอบการทำงานของส่วนขยาย Table Extractor AI โดยมีตารางในรูปแบบต่างๆ</p>
+    
+    <div class="test-section">
+        <h2>📊 ตาราง HTML มาตรฐาน</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ชื่อ</th>
+                    <th>อายุ</th>
+                    <th>เมือง</th>
+                    <th>อาชีพ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>สมชาย</td>
+                    <td>25</td>
+                    <td>กรุงเทพฯ</td>
+                    <td>วิศวกร</td>
+                </tr>
+                <tr>
+                    <td>สมหญิง</td>
+                    <td>30</td>
+                    <td>เชียงใหม่</td>
+                    <td>ครู</td>
+                </tr>
+                <tr>
+                    <td>สมศักดิ์</td>
+                    <td>35</td>
+                    <td>ภูเก็ต</td>
+                    <td>หมอ</td>
+                </tr>
+                <tr>
+                    <td>สมใจ</td>
+                    <td>28</td>
+                    <td>ขอนแก่น</td>
+                    <td>พยาบาล</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 ตารางข้อมูลการขาย</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>เดือน</th>
+                    <th>ยอดขาย (บาท)</th>
+                    <th>เป้าหมาย (บาท)</th>
+                    <th>% ความสำเร็จ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>มกราคม</td>
+                    <td>120,000</td>
+                    <td>100,000</td>
+                    <td>120%</td>
+                </tr>
+                <tr>
+                    <td>กุมภาพันธ์</td>
+                    <td>95,000</td>
+                    <td>100,000</td>
+                    <td>95%</td>
+                </tr>
+                <tr>
+                    <td>มีนาคม</td>
+                    <td>110,000</td>
+                    <td>100,000</td>
+                    <td>110%</td>
+                </tr>
+                <tr>
+                    <td>เมษายน</td>
+                    <td>88,000</td>
+                    <td>100,000</td>
+                    <td>88%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 Grid View (CSS Grid)</h2>
+        <div class="data-grid" role="grid">
+            <div class="grid-cell grid-header" role="columnheader">สินค้า</div>
+            <div class="grid-cell grid-header" role="columnheader">ราคา</div>
+            <div class="grid-cell grid-header" role="columnheader">จำนวน</div>
+            <div class="grid-cell grid-header" role="columnheader">รวม</div>
+            
+            <div class="grid-cell" role="gridcell">แล็ปท็อป</div>
+            <div class="grid-cell" role="gridcell">25,000</div>
+            <div class="grid-cell" role="gridcell">2</div>
+            <div class="grid-cell" role="gridcell">50,000</div>
+            
+            <div class="grid-cell" role="gridcell">เมาส์</div>
+            <div class="grid-cell" role="gridcell">500</div>
+            <div class="grid-cell" role="gridcell">5</div>
+            <div class="grid-cell" role="gridcell">2,500</div>
+            
+            <div class="grid-cell" role="gridcell">คีย์บอร์ด</div>
+            <div class="grid-cell" role="gridcell">1,200</div>
+            <div class="grid-cell" role="gridcell">3</div>
+            <div class="grid-cell" role="gridcell">3,600</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>💡 วิธีการทดสอบ</h2>
+        <ol>
+            <li>ติดตั้งส่วนขยาย Table Extractor AI ใน Chrome</li>
+            <li>เปิดหน้าเว็บนี้</li>
+            <li>คลิกที่ไอคอนส่วนขยายใน toolbar</li>
+            <li>กดปุ่ม "สแกนหน้าเว็บ" เพื่อค้นหาตาราง</li>
+            <li>เลือกตารางที่ต้องการประมวลผล</li>
+            <li>ทดสอบฟีเจอร์ AI และการส่งออกข้อมูล</li>
+        </ol>
+        
+        <h3>🎯 สิ่งที่ควรเกิดขึ้น:</h3>
+        <ul>
+            <li>✅ ตารางทั้งหมดควรถูกตรวจพบ (3 ตาราง)</li>
+            <li>✅ สามารถแสดงตัวอย่างข้อมูลได้</li>
+            <li>✅ ส่งออกเป็น CSV, JSON, Markdown ได้</li>
+            <li>✅ Floating UI ทำงานปกติ</li>
+            <li>✅ ไม่มี error ใน Console</li>
+        </ul>
+    </div>
+
+    <script>
+        // Add some dynamic content for testing
+        console.log('🧪 Test page loaded - ready for Table Extractor AI testing');
+        
+        // Listen for extension messages
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.source === 'table-extractor-ai') {
+                console.log('📨 Received message from extension:', event.data);
+            }
+        });
+        
+        // Add table hover effects for visual feedback
+        document.querySelectorAll('table, [role="grid"]').forEach((table, index) => {
+            table.addEventListener('mouseenter', () => {
+                table.style.boxShadow = '0 4px 12px rgba(0, 122, 255, 0.3)';
+                table.style.transform = 'translateY(-2px)';
+                table.style.transition = 'all 0.3s ease';
+            });
+            
+            table.addEventListener('mouseleave', () => {
+                table.style.boxShadow = 'none';
+                table.style.transform = 'translateY(0)';
+            });
+            
+            // Add ID for easy reference
+            table.id = `test-table-${index + 1}`;
+        });
+    </script>
+</body>
+</html>

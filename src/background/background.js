@@ -1,8 +1,7 @@
 // Background Script for Table Extractor AI Chrome Extension
 
-// Import utilities (in a real extension, these would be loaded via manifest)
+// Import utilities as classic scripts for Manifest V3 compatibility
 importScripts('../utils/promptTemplates.js', '../utils/aiService.js', '../utils/tableExtractor.js');
-
 class BackgroundService {
   constructor() {
     this.aiService = new AIService();

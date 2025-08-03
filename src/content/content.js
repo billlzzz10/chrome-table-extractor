@@ -1,5 +1,89 @@
 // Content Script for Table Extractor AI Chrome Extension
 
+// Import TableExtractor if available, otherwise define a minimal version
+let TableExtractor;
+try {
+  // Try to import if available as module
+  TableExtractor = globalThis.TableExtractor;
+} catch (e) {
+  // Define a basic table extractor for content script
+  TableExtractor = class {
+    constructor() {
+      this.supportedFormats = ['html-table'];
+    }
+    
+    async extractFromCurrentPage() {
+      return this.extractFromHTML();
+    }
+    
+    async extractFromHTML() {
+      const tables = [];
+      const tableElements = document.querySelectorAll('table, [role="grid"], [role="table"], .table, .data-table, .data-grid');
+      
+      tableElements.forEach((table, index) => {
+        try {
+          const data = this.parseHTMLTable(table);
+          if (data && data.length > 0) {
+            tables.push({
+              id: `table-${index}`,
+              type: 'html',
+              source: 'page',
+              element: table,
+              data: data,
+              headers: data[0] || [],
+              rows: data.length - 1,
+              columns: data[0] ? data[0].length : 0
+            });
+          }
+        } catch (error) {
+          console.warn('Failed to parse table:', error);
+        }
+      });
+      
+      return tables;
+    }
+    
+    parseHTMLTable(element) {
+      if (element.tagName === 'TABLE') {
+        return this.parseStandardTable(element);
+      } else {
+        return this.parseCustomTable(element);
+      }
+    }
+    
+    parseStandardTable(table) {
+      const data = [];
+      const rows = table.querySelectorAll('tr');
+      
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td, th');
+        const rowData = Array.from(cells).map(cell => cell.textContent.trim());
+        if (rowData.some(cell => cell.length > 0)) {
+          data.push(rowData);
+        }
+      });
+      
+      return data;
+    }
+    
+    parseCustomTable(element) {
+      // Handle grid/data-table elements
+      const data = [];
+      const rows = element.querySelectorAll('[role="row"], .row, .table-row');
+      
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('[role="cell"], [role="gridcell"], .cell, .table-cell, td, th');
+        const rowData = Array.from(cells).map(cell => cell.textContent.trim());
+        if (rowData.some(cell => cell.length > 0)) {
+          data.push(rowData);
+        }
+      });
+      
+      return data;
+    }
+  };
+}
+
 class ContentScriptManager {
   constructor() {
     this.tableExtractor = new TableExtractor();
