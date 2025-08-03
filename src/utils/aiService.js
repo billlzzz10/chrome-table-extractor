@@ -81,7 +81,7 @@ class AIService {
 
     // Check table data size (prevent excessive API costs)
     const tableDataString = JSON.stringify(tableData);
-    if (tableDataString.length > 100000) { // 100KB limit
+    if (tableDataString.length > AIService.TABLE_DATA_SIZE_LIMIT) {
       return false;
     }
 
