@@ -22,6 +22,11 @@ class AIService {
 
   async processTableData(tableData, promptTemplate, provider = 'openai', options = {}) {
     try {
+      // Input validation
+      if (!this.validateInputs(tableData, promptTemplate, provider)) {
+        throw new Error('ข้อมูลป้อนเข้าไม่ถูกต้อง');
+      }
+
       const settings = await this.getSettings();
       const apiKey = this.getApiKey(provider, settings);
       
@@ -53,8 +58,51 @@ class AIService {
     }
   }
 
+  validateInputs(tableData, promptTemplate, provider) {
+    // Validate table data
+    if (!tableData || typeof tableData !== 'object') {
+      return false;
+    }
+
+    // Validate prompt template
+    if (!promptTemplate || !promptTemplate.prompt || typeof promptTemplate.prompt !== 'string') {
+      return false;
+    }
+
+    // Check prompt length (prevent excessive API costs)
+    if (promptTemplate.prompt.length > 10000) {
+      return false;
+    }
+
+    // Validate provider
+    if (!provider || !this.providers[provider]) {
+      return false;
+    }
+
+    // Check table data size (prevent excessive API costs)
+    const tableDataString = JSON.stringify(tableData);
+    if (tableDataString.length > 100000) { // 100KB limit
+      return false;
+    }
+
+    return true;
+  }
+
+  sanitizeInput(input) {
+    if (typeof input !== 'string') {
+      return input;
+    }
+    
+    // Remove potential XSS patterns
+    return input
+      .replace(/<script[^>]*>.*?<\/script>/gi, '')
+      .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
+      .replace(/javascript:/gi, '')
+      .replace(/on\w+\s*=/gi, '');
+  }
+
   buildPrompt(tableData, promptTemplate) {
-    let prompt = promptTemplate.prompt;
+    let prompt = this.sanitizeInput(promptTemplate.prompt);
     
     // Replace placeholders with actual data
     const tableJson = JSON.stringify(tableData, null, 2);

@@ -16,6 +16,17 @@
   --text-secondary: #6E6E73;
   --text-tertiary: #8E8E93;
   
+  /* Background aliases for compatibility */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-tertiary: #E5E5E7;
+  --bg-hover: #F0F0F5;
+  
+  /* RGB values for alpha transparency */
+  --primary-rgb: 0, 122, 255;
+  --bg-primary-rgb: 255, 255, 255;
+  --bg-secondary-rgb: 248, 249, 250;
+  
   /* Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -62,6 +73,16 @@
     --text-primary: #FFFFFF;
     --text-secondary: #AEAEB2;
     --text-tertiary: #8E8E93;
+    
+    /* Background aliases for compatibility */
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #38383A;
+    --bg-hover: #2C2C2E;
+    
+    /* RGB values for alpha transparency */
+    --bg-primary-rgb: 0, 0, 0;
+    --bg-secondary-rgb: 28, 28, 30;
   }
 }
 
