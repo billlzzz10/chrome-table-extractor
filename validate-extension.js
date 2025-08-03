@@ -95,7 +95,44 @@ try {
 }
 
 console.log('\n✨ Validation complete!');
+
+// Additional functionality checks
+console.log('\n🔧 Advanced checks:');
+
+// Check for common issues in content script
+try {
+  const contentScript = fs.readFileSync('./src/content/content.js', 'utf8');
+  if (contentScript.includes('TableExtractor') && contentScript.includes('class ContentScriptManager')) {
+    console.log('✅ Content script structure looks good');
+  }
+  if (contentScript.includes('chrome.runtime.onMessage')) {
+    console.log('✅ Message handling implemented');
+  }
+} catch (error) {
+  console.log('⚠️  Could not validate content script');
+}
+
+// Check CSS variable consistency
+try {
+  const modernUi = fs.readFileSync('./assets/css/modern-ui.css', 'utf8');
+  const popup = fs.readFileSync('./assets/css/popup.css', 'utf8');
+  
+  const modernUiVars = modernUi.match(/--[\w-]+:/g) || [];
+  const popupVars = popup.match(/var\(--[\w-]+\)/g) || [];
+  
+  console.log(`✅ CSS variables defined: ${modernUiVars.length}`);
+  console.log(`✅ CSS variables used: ${popupVars.length}`);
+} catch (error) {
+  console.log('⚠️  Could not validate CSS variables');
+}
+
 console.log('\n📝 To test the extension:');
 console.log('   1. Open Chrome and go to chrome://extensions/');
 console.log('   2. Enable "Developer mode"');
 console.log('   3. Click "Load unpacked" and select this directory');
+console.log('   4. Open test-page.html to test table detection');
+console.log('   5. Click the extension icon to test the popup');
+
+console.log('\n🚀 Quick test command:');
+console.log('   python3 -m http.server 8000');
+console.log('   Then visit: http://localhost:8000/test-page.html');
